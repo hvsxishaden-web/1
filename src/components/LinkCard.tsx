@@ -33,11 +33,12 @@ const cardVariants = {
 
 export default function LinkCard({ card, index }: LinkCardProps) {
   const isMultiDept = card.type === 'multi-department';
+  const isCampus = card.category === 'campuses';
 
   return (
     <motion.section
       variants={cardVariants}
-      className={`link-card ${isMultiDept ? 'span-full-width' : ''}`}
+      className={`link-card ${isMultiDept || isCampus ? 'span-full-width' : ''}`}
       data-category={card.category}
       data-level={card.level}
     >
@@ -56,11 +57,11 @@ export default function LinkCard({ card, index }: LinkCardProps) {
         </div>
       )}
 
-      {/* Sections structure inside levels (e.g. Level 1 to 3) */}
+      {/* Sections structure inside levels & campuses */}
       {card.sections && (
-        <>
+        <div className="space-y-6">
           {card.sections.map((section, idx) => (
-            <div key={idx} className="mb-6 last:mb-0">
+            <div key={idx} className="flex flex-col">
               {section.title && (
                 <h3 className="card-section-title">
                   <Icon name={section.icon} />
@@ -74,7 +75,7 @@ export default function LinkCard({ card, index }: LinkCardProps) {
               </div>
             </div>
           ))}
-        </>
+        </div>
       )}
 
       {/* Multi-department structure inside higher levels (e.g. Level 4 to 6) */}
