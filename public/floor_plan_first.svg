@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <style>
+    .blue-line { stroke: #2563eb; stroke-width: 4; stroke-linecap: round; }
+    .thin-blue-line { stroke: #2563eb; stroke-width: 3; stroke-linecap: round; }
+    .text-blue { fill: #1d4ed8; font-weight: bold; font-size: 16px; text-anchor: middle; }
+    .text-blue-sm { fill: #2563eb; font-weight: 600; font-size: 13px; text-anchor: middle; }
+    .text-title { fill: #000000; font-weight: 800; font-size: 32px; text-anchor: middle; }
+    .text-black { fill: #000000; font-weight: bold; font-size: 16px; text-anchor: middle; }
+    .text-red { fill: #dc2626; font-weight: 800; font-size: 26px; text-anchor: end; }
+  </style>
+
+  <!-- Title Box Top Right -->
+  <g transform="translate(1080, 40)">
+    <rect x="0" y="0" width="460" height="75" fill="#ffffff" stroke="#000000" stroke-width="3" rx="4"/>
+    <text x="230" y="48" font-size="28" font-weight="bold" fill="#000000" text-anchor="middle">مخطط كلية الحاسب - طلاب</text>
+  </g>
+  
+  <!-- Floor Title -->
+  <text x="750" y="80" class="text-title">الدور الأول</text>
+
+  <!-- Main Blueprint Axis Lines -->
+  <line x1="120" y1="220" x2="1500" y2="220" class="blue-line"/>
+  <line x1="120" y1="560" x2="1500" y2="560" class="blue-line"/>
+  <line x1="120" y1="880" x2="1500" y2="880" class="blue-line"/>
+
+  <!-- Vertical Lines -->
+  <line x1="370" y1="120" x2="370" y2="1020" class="blue-line"/>
+  <line x1="890" y1="120" x2="890" y2="1020" class="blue-line"/>
+  <line x1="1280" y1="220" x2="1280" y2="880" class="blue-line"/>
+
+  <!-- Secondary Divider Lines -->
+  <line x1="890" y1="310" x2="1180" y2="310" class="thin-blue-line"/>
+  <line x1="1180" y1="220" x2="1180" y2="310" class="thin-blue-line"/>
+
+  <!-- Central Circle Rotunda -->
+  <circle cx="370" cy="560" r="75" fill="#ffffff" stroke="#2563eb" stroke-width="5"/>
+
+  <!-- Left Wing Labels (كلية العمارة والتخطيط) -->
+  <g font-size="15" font-weight="bold" fill="#000000">
+    <text x="65" y="210">كلية العمارة</text>
+    <text x="65" y="235">والتخطيط</text>
+
+    <text x="65" y="550">كلية العمارة</text>
+    <text x="65" y="575">والتخطيط</text>
+
+    <text x="65" y="870">كلية العمارة</text>
+    <text x="65" y="895">والتخطيط</text>
+  </g>
+
+  <!-- Top Utilities -->
+  <text x="310" y="130" class="text-blue-sm">دورة مياه</text>
+  <text x="400" y="115" class="text-blue-sm">المصعد</text>
+  <text x="400" y="145" class="text-blue-sm">السلالم</text>
+
+  <!-- Classrooms IT 201 - IT 205 -->
+  <g class="text-blue" font-size="18">
+    <text x="450" y="200">IT 201</text>
+    <text x="530" y="200">IT 202</text>
+    <text x="610" y="200">IT 203</text>
+    <text x="690" y="200">IT 204</text>
+    <text x="770" y="200">IT 205</text>
+  </g>
+
+  <!-- Top Center Utilities -->
+  <text x="850" y="180" class="text-blue-sm">المصعد</text>
+  <text x="920" y="180" class="text-blue-sm">السلالم</text>
+  <text x="880" y="210" class="text-blue-sm">دورة مياه</text>
+
+  <!-- Top Right Labs -->
+  <g text-anchor="middle">
+    <text x="1050" y="170" class="text-blue" font-size="18">معمل اللينكس</text>
+
+    <text x="1050" y="250" class="text-blue" font-size="17">معمل علوم البيانات</text>
+    <text x="1050" y="275" class="text-blue" font-size="15">( Lab - IT 225 )</text>
+  </g>
+
+  <!-- Middle Quad Classrooms IT 206 - IT 209 -->
+  <g class="text-blue" font-size="18">
+    <text x="840" y="320">IT 206</text>
+    <text x="940" y="320">IT 209</text>
+    <text x="840" y="450">IT 207</text>
+    <text x="940" y="450">IT 208</text>
+  </g>
+
+  <!-- Middle Utilities -->
+  <text x="850" y="525" class="text-blue-sm">المصعد</text>
+  <text x="850" y="555" class="text-blue-sm">السلالم</text>
+
+  <!-- Far Right Section Labs -->
+  <g text-anchor="middle">
+    <text x="1160" y="380" class="text-blue" font-size="17">معمل البرمجة</text>
+    <text x="1160" y="405" class="text-blue" font-size="15">( Lab - IT 224 )</text>
+
+    <text x="1420" y="380" class="text-blue" font-size="17">معمل الشبكات</text>
+    <text x="1420" y="405" class="text-blue" font-size="15">( Lab - IT 223 )</text>
+
+    <text x="1240" y="520" class="text-blue-sm">المصعد</text>
+    <text x="1310" y="520" class="text-blue-sm">السلالم</text>
+    <text x="1400" y="550" class="text-blue-sm">دورة مياه</text>
+
+    <text x="1470" y="460" class="text-blue" font-size="16">معمل إنترنت الأشياء</text>
+    <text x="1470" y="485" class="text-blue" font-size="14">( Lab - IT 222 )</text>
+
+    <text x="1470" y="570" class="text-blue" font-size="16">معمل قواعد البيانات</text>
+    <text x="1470" y="595" class="text-blue" font-size="14">( Lab - IT 221 )</text>
+  </g>
+
+  <!-- Central Rotunda Area -->
+  <g font-size="18" font-weight="bold" fill="#1d4ed8">
+    <text x="260" y="500">المصلى</text>
+    <text x="490" y="490" font-size="22">Lion cafe</text>
+    <text x="220" y="620">النادي الطلابي</text>
+    <text x="450" y="650" font-size="20">مسرح الدور الأول</text>
+    <text x="430" y="690" class="text-blue-sm">دورة مياه</text>
+  </g>
+
+  <!-- Department Offices -->
+  <g text-anchor="middle">
+    <text x="1080" y="515" class="text-blue" font-size="18">رئيس قسم تقنية المعلومات</text>
+    <text x="1080" y="580" class="text-blue" font-size="18">مجلس قسم تقنية المعلومات</text>
+    <text x="930" y="570" class="text-blue-sm">دورة مياه</text>
+
+    <g class="text-blue" font-size="14">
+      <text x="1410" y="660">مكاتب أعضاء</text>
+      <text x="1410" y="685">هيئة التدريس</text>
+      <text x="1410" y="710">قسم تقنية المعلومات</text>
+
+      <text x="1220" y="660">مكاتب أعضاء</text>
+      <text x="1220" y="685">هيئة التدريس</text>
+      <text x="1220" y="710">قسم تقنية المعلومات</text>
+
+      <text x="1030" y="660">مكاتب أعضاء</text>
+      <text x="1030" y="685">هيئة التدريس</text>
+      <text x="1030" y="710">قسم تقنية المعلومات</text>
+
+      <text x="850" y="660">مكاتب أعضاء</text>
+      <text x="850" y="685">هيئة التدريس</text>
+      <text x="850" y="710">قسم تقنية المعلومات</text>
+    </g>
+  </g>
+
+  <!-- Bottom Section -->
+  <g text-anchor="middle">
+    <text x="1080" y="830" class="text-blue" font-size="18">رئيس قسم الأمن السيبراني</text>
+    <text x="980" y="920" class="text-blue" font-size="19">قاعات دراسية</text>
+
+    <text x="740" y="920" class="text-blue" font-size="18">قاعة وادي التقنية</text>
+    <text x="740" y="945" class="text-blue" font-size="15">( TECH 1 )</text>
+
+    <text x="560" y="920" class="text-blue" font-size="18">معمل الأمن السيبراني</text>
+    <text x="560" y="945" class="text-blue" font-size="15">( Lab - IT 226 )</text>
+
+    <text x="430" y="920" class="text-blue" font-size="15">معمل التحقيق</text>
+    <text x="430" y="945" class="text-blue" font-size="15">الجنائي الرقمي</text>
+
+    <text x="780" y="1020" class="text-blue" font-size="18">معمل البرمجيات الآمنة</text>
+
+    <text x="310" y="690" class="text-blue-sm">المصعد</text>
+    <text x="310" y="715" class="text-blue-sm">السلالم</text>
+
+    <text x="280" y="1000" class="text-blue-sm">دورة مياه</text>
+    <text x="410" y="1000" class="text-blue-sm">السلالم</text>
+    <text x="410" y="1025" class="text-blue-sm">المصعد</text>
+
+    <text x="870" y="920" class="text-blue-sm">المصعد</text>
+    <text x="920" y="920" class="text-blue-sm">السلالم</text>
+
+    <text x="1240" y="920" class="text-blue-sm">المصعد</text>
+    <text x="1310" y="920" class="text-blue-sm">السلالم</text>
+  </g>
+
+  <!-- Watermark -->
+  <text x="1520" y="1040" class="text-red">Made by Vilwsn</text>
+</svg>
