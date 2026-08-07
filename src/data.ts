@@ -19,6 +19,17 @@ export const LEVEL_FILTERS: LevelFilter[] = [
   { id: 'level-10', text: 'العاشر' }
 ];
 
+export interface CampusFilter {
+  id: string;
+  text: string;
+}
+
+export const CAMPUS_FILTERS: CampusFilter[] = [
+  { id: 'campus-main', text: 'الرئيسي' },
+  { id: 'campus-rass', text: 'الرس' },
+  { id: 'campus-unaizah', text: 'عنيزة' }
+];
+
 export const PRESET_THEMES = {
   blue: '#2563eb', // Beautiful rich blue corresponding to Elegant Dark specification
   sky: '#0284c7',  // Clean corporate sky blue
@@ -59,7 +70,7 @@ export const SITE_DATA: CardData[] = [
   },
   {
     category: 'campuses',
-    level: 'campuses',
+    level: 'campus-main',
     title: 'المقر الرئيسي',
     icon: 'fa-building-columns',
     sections: [
@@ -68,7 +79,7 @@ export const SITE_DATA: CardData[] = [
         icon: 'fa-female',
         links: [
           { href: "https://maps.app.goo.gl/wMTh72giA8rG7ixp8?g_st=ic", type: "group", icon: "fa-location-dot", text: "موقع الكلية", status: "active" },
-          { href: "https://maps.app.goo.gl/wMTh72giA8rG7ixp8?g_st=ic", specialAction: "female-floor-plan", type: "group", icon: "fa-map-location-dot", text: "مخطط المبنى", status: "active" }
+          { href: "#floor-plan-female", specialAction: "female-floor-plan", type: "group", icon: "fa-map-location-dot", text: "مخطط المبنى", status: "active" }
         ]
       },
       {
@@ -83,21 +94,39 @@ export const SITE_DATA: CardData[] = [
   },
   {
     category: 'campuses',
-    level: 'campuses',
+    level: 'campus-rass',
     title: 'مقر الرس',
     icon: 'fa-city',
-    links: [
-      { href: "https://maps.app.goo.gl/ziGGqiiRmVWgAsK77", type: "group", icon: "fa-female", text: "طالبات", status: "active" },
-      { href: "https://maps.app.goo.gl/FpWckdfczc1Zw9SGA", type: "group", icon: "fa-male", text: "طلاب", status: "active" }
+    sections: [
+      {
+        title: 'طالبات',
+        icon: 'fa-female',
+        links: [
+          { href: "https://maps.app.goo.gl/ziGGqiiRmVWgAsK77", type: "group", icon: "fa-location-dot", text: "موقع الكلية", status: "active" }
+        ]
+      },
+      {
+        title: 'طلاب',
+        icon: 'fa-male',
+        links: [
+          { href: "https://maps.app.goo.gl/FpWckdfczc1Zw9SGA", type: "group", icon: "fa-location-dot", text: "موقع الكلية", status: "active" }
+        ]
+      }
     ]
   },
   {
     category: 'campuses',
-    level: 'campuses',
+    level: 'campus-unaizah',
     title: 'مقر عنيزة',
     icon: 'fa-school',
-    links: [
-      { href: "https://goo.gl/maps/5cXcGmWgRgxCFugY8", type: "group", icon: "fa-female", text: "طالبات", status: "active" }
+    sections: [
+      {
+        title: 'طالبات',
+        icon: 'fa-female',
+        links: [
+          { href: "https://goo.gl/maps/5cXcGmWgRgxCFugY8", type: "group", icon: "fa-location-dot", text: "موقع الكلية", status: "active" }
+        ]
+      }
     ]
   },
   {
@@ -219,27 +248,24 @@ export const SITE_DATA: CardData[] = [
         icon: "fa-owl",
         links: [
           { href: "https://t.me/addlist/ZtRnIlkmJTljZWU8", type: "initiative", icon: "fa-code", text: "CS", status: "active" },
-          { href: "https://t.me/addlist/g8wWumeEK18zYWE8", type: "initiative", icon: "fa-microchip", text: "COE", status: "active" },
+          { href: "https://t.me/addlist/g8wWumeEK18zYWE8", type: "initiative", icon: "fa-microchip", text: "CE", status: "active" },
           { href: "https://t.me/addlist/BTe1AeQZS5pjNWE8", type: "initiative", icon: "fa-laptop", text: "IT", status: "active" }
-        ]
-      },
-      {
-        title: "Computer",
-        icon: "fa-laptop",
-        links: [
-          { href: "https://t.me/COMPUTERLEVEL5", type: "initiative", icon: "fa-globe", text: "جميع التخصصات" },
-          { href: "https://t.me/+fwSklfrK1PdjZjY0", type: "initiative", icon: "fa-code", text: "CS" },
-          { href: "https://t.me/COELLevel5", type: "initiative", icon: "fa-microchip", text: "CE" },
-          { href: "https://t.me/+jkUlFeaEgyszZjVk", type: "initiative", icon: "fa-laptop", text: "IT" }
         ]
       },
       {
         title: "Moves",
         icon: "fa-route",
         links: [
-          { href: "https://t.me/Brightofcs5", type: "initiative", icon: "fa-code", text: "CS", status: "open" },
-          { href: "https://t.me/CEGOATS/1", type: "initiative", icon: "fa-microchip", text: "CE", status: "closed" },
+          { href: "https://t.me/CSl472Level5", type: "initiative", icon: "fa-code", text: "CS", status: "open" },
+          { href: "https://t.me/Level5COE", type: "initiative", icon: "fa-microchip", text: "CE", status: "open" },
           { href: "https://t.me/+x1qfgmHNDJBkMGFk", type: "initiative", icon: "fa-laptop", text: "IT", status: "active" }
+        ]
+      },
+      {
+        title: "Computer",
+        icon: "fa-laptop",
+        links: [
+          { href: "https://t.me/COMPUTERLEVEL5", type: "initiative", icon: "fa-globe", text: "جميع التخصصات" }
         ]
       },
       {
