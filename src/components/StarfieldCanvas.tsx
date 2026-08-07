@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export default function StarfieldCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -86,9 +86,12 @@ export default function StarfieldCanvas() {
         ctx.rotate(this.angle);
         ctx.font = `${this.fontSize}px "JetBrains Mono", Consolas, monospace`;
         
-        ctx.fillStyle = `rgba(147, 197, 253, ${this.opacity})`; // Neon blue/cyan coding accent matching the theme
+        const isLight = document.body.classList.contains('light-mode');
+        ctx.fillStyle = isLight 
+          ? `rgba(37, 99, 235, ${this.opacity * 1.8})` 
+          : `rgba(147, 197, 253, ${this.opacity})`;
         ctx.shadowBlur = 4;
-        ctx.shadowColor = 'rgba(147, 197, 253, 0.4)';
+        ctx.shadowColor = isLight ? 'rgba(37, 99, 235, 0.2)' : 'rgba(147, 197, 253, 0.4)';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(this.text, 0, 0);
