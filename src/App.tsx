@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CardData, BaseLink } from './types';
-import { SITE_DATA, PRIMARY_FILTERS, LEVEL_FILTERS, PRESET_THEMES } from './data';
+import { SITE_DATA, PRIMARY_FILTERS, LEVEL_FILTERS, CAMPUS_FILTERS, PRESET_THEMES } from './data';
 import StarfieldCanvas from './components/StarfieldCanvas';
 import LinkCard from './components/LinkCard';
 import LinkButton from './components/LinkButton';
@@ -30,6 +30,7 @@ export default function App() {
   const { favorites } = useFavorites();
   const [activePrimaryFilter, setActivePrimaryFilter] = useState<string>('college');
   const [activeLevelFilter, setActiveLevelFilter] = useState<string>('level-1');
+  const [activeCampusFilter, setActiveCampusFilter] = useState<string>('campus-main');
   const [isWelcomeOpen, setIsWelcomeOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFloorMapOpen, setIsFloorMapOpen] = useState<boolean>(false);
@@ -78,7 +79,7 @@ export default function App() {
     const results: { link: BaseLink; sourceTitle: string; sectionTitle: string }[] = [];
 
     SITE_DATA.forEach((card) => {
-      card.sections.forEach((sec) => {
+      card.sections?.forEach((sec) => {
         sec.links.forEach((lnk) => {
           if (
             lnk.text.toLowerCase().includes(query) ||
@@ -187,6 +188,9 @@ export default function App() {
   const filteredCards = SITE_DATA.filter((card: CardData) => {
     if (activePrimaryFilter === 'levels') {
       return card.category === 'levels' && card.level === activeLevelFilter;
+    }
+    if (activePrimaryFilter === 'campuses') {
+      return card.category === 'campuses' && card.level === activeCampusFilter;
     }
     return card.category === activePrimaryFilter;
   });
@@ -317,6 +321,51 @@ export default function App() {
                 </div>
               </motion.div>
             )}
+
+            {activePrimaryFilter === 'campuses' && (
+              <motion.div
+                key="campus-carousel"
+                initial={{ height: 0, opacity: 0, y: -12, marginBottom: 0 }}
+                animate={{ height: 80, opacity: 1, y: 0, marginBottom: '2.5rem' }}
+                exit={{ height: 0, opacity: 0, y: -12, marginBottom: 0 }}
+                transition={{
+                  height: { duration: 0.24, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.18, ease: 'easeOut' },
+                  y: { duration: 0.24, ease: [0.16, 1, 0.3, 1] },
+                  marginBottom: { duration: 0.24, ease: [0.16, 1, 0.3, 1] }
+                }}
+                style={{ overflowX: 'auto', overflowY: 'hidden', width: '100%' }}
+                className="filter-carousel-wrapper is-visible"
+                id="campus-carousel-wrapper"
+              >
+                <div className="filter-carousel-track flex justify-center w-full">
+                  {CAMPUS_FILTERS.map((campus) => {
+                    const isActive = activeCampusFilter === campus.id;
+                    return (
+                      <motion.button
+                        key={campus.id}
+                        className={`filter-btn ${isActive ? 'is-active' : ''}`}
+                        onClick={() => setActiveCampusFilter(campus.id)}
+                        role="button"
+                        aria-pressed={isActive}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.93 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                      >
+                        <span>{campus.text}</span>
+                        {isActive && (
+                          <motion.div
+                            layoutId="campus-active-indicator"
+                            className="active-indicator"
+                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
           </AnimatePresence>
 
           {/* Main Cards Grid */}
@@ -413,7 +462,7 @@ export default function App() {
                             onClick={handleResetFilter}
                             className="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-5 py-2.5 rounded-full text-sm shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
                           >
-                            تصفح الكلية والمستويات
+                            تصفح الدليل
                           </button>
                         </div>
                       </div>
@@ -422,15 +471,17 @@ export default function App() {
                 </motion.div>
               ) : (
                 <motion.div
-                  key={activePrimaryFilter + '-' + activeLevelFilter}
+                  key={activePrimaryFilter + '-' + activeLevelFilter + '-' + activeCampusFilter}
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="links-grid"
+                  className={filteredCards.length === 1 ? "w-full flex flex-col items-center" : "links-grid"}
                 >
                   {filteredCards.map((card, idx) => (
-                    <LinkCard key={idx} card={card} index={idx} />
+                    <div key={idx} className={filteredCards.length === 1 ? "w-full max-w-2xl mx-auto" : "w-full"}>
+                      <LinkCard card={card} index={idx} />
+                    </div>
                   ))}
                 </motion.div>
               )}
