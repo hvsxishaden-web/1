@@ -29,7 +29,7 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
             </button>
             <h2 className="modal-header">أهلًا بك في كلية الحاسب!💻💫</h2>
             <div className="welcome-modal-body text-right">
-              <p>دليلك الأكاديمي للوصول لكافة القنوات والمجموعات والمبادرات الطلابية خلال رحلتك الجامعية</p>
+              <p>دليلك الأكاديمي للوصول إلى ما تحتاج خلال رحلتك الجامعية</p>
             </div>
           </motion.div>
         </div>
