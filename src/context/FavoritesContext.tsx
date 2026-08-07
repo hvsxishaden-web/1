@@ -11,6 +11,7 @@ export interface ToastType {
   type: 'add' | 'remove';
 }
 
+
 interface FavoritesContextType {
   favorites: BaseLink[];
   toggleFavorite: (link: BaseLink) => void;
