@@ -30,9 +30,14 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
             <h2 className="modal-header">أهلًا بك في كلية الحاسب!💻💫</h2>
             <div className="welcome-modal-body text-right">
               <p>دليلك الأكاديمي للوصول إلى ما تحتاج خلال رحلتك الجامعية</p>
-              <div className="mt-8 pt-6 border-t border-white/10 text-center flex flex-col items-center gap-2">
-                <span className="text-xs sm:text-sm font-bold text-amber-400 block mt-3">تذكير</span>
-                <p className="!mb-0 text-slate-200">لا إله إلا أنت سبحانك اني كنت من الظالمين</p>
+              <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-3.5 mt-9 sm:mt-10 text-center relative overflow-hidden">
+                <div className="flex items-center justify-center gap-1.5 text-amber-400 text-xs font-bold mb-1">
+                  <span>تذكير</span>
+                  <i className="fas fa-heart text-[10px]"></i>
+                </div>
+                <p className="text-xs sm:text-sm font-medium text-amber-100/90 leading-relaxed m-0">
+                  لا إله إلا أنت سبحانك اني كنت من الظالمين
+                </p>
               </div>
             </div>
           </motion.div>
@@ -41,3 +46,4 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
     </AnimatePresence>
   );
 }
+
