@@ -30,12 +30,12 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
             <h2 className="modal-header">أهلًا بك في كلية الحاسب!💻💫</h2>
             <div className="welcome-modal-body text-right">
               <p>دليلك الأكاديمي للوصول إلى ما تحتاج خلال رحلتك الجامعية</p>
-              <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-3.5 mt-9 sm:mt-10 text-center relative overflow-hidden">
-                <div className="flex items-center justify-center gap-1.5 text-amber-400 text-xs font-bold mb-1">
+              <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-3.5 mt-9 sm:mt-10 text-center relative overflow-hidden welcome-reminder-box">
+                <div className="flex items-center justify-center gap-1.5 text-amber-400 text-xs font-bold mb-1 welcome-reminder-title">
                   <span>تذكير</span>
                   <i className="fas fa-heart text-[10px]"></i>
                 </div>
-                <p className="text-xs sm:text-sm font-medium text-amber-100/90 leading-relaxed m-0">
+                <p className="text-xs sm:text-sm font-medium text-amber-100/90 leading-relaxed m-0 welcome-reminder-text">
                   لا إله إلا أنت سبحانك اني كنت من الظالمين
                 </p>
               </div>
