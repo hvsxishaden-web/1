@@ -343,7 +343,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                 <Icon name="fa-map-location-dot" className="text-xl sm:text-2xl" />
               </div>
               <div>
-                <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-white floor-map-modal-title">
+                <h2 className="text-base sm:text-lg font-bold tracking-tight text-white floor-map-modal-title">
                   {gender === 'male' ? 'المقر الرئيسي - طلاب' : 'المقر الرئيسي - طالبات'}
                 </h2>
               </div>
@@ -362,55 +362,58 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
 
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar">
-            {/* Controls Bar: Floor Switcher & Search Stacked */}
-            <div className="flex flex-col gap-2 sm:gap-2.5 w-full mt-2 sm:mt-3 pb-1">
-              {/* Floors Tabs Side-by-Side */}
-              <div className="flex rounded-2xl bg-white/5 p-1.5 sm:p-2 border border-white/10 gap-2 sm:gap-2.5 w-full floor-map-tabs-container shadow-sm">
-                {currentFloors.map(floor => (
-                  <button
-                    key={floor.id}
-                    type="button"
-                    onClick={() => {
-                      setActiveFloorId(floor.id);
-                      setActiveRoomDetail(null);
-                    }}
-                    className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                      activeFloorId === floor.id
-                        ? gender === 'male'
-                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
-                          : 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-lg'
-                        : 'text-slate-300 hover:text-white hover:bg-white/5 floor-map-tab-inactive'
-                    }`}
-                  >
-                    <Icon name={floor.id === 'ground' ? 'fa-layer-group' : 'fa-building'} className="text-sm sm:text-base" />
-                    <span>{floor.title}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Search Input Underneath */}
-              <div className="w-full relative">
+            {/* Controls Bar: Search & Floor Switcher Stacked tightly */}
+            <div className="flex flex-col gap-1.5 w-full mt-1 sm:mt-2 pb-1">
+              {/* Search Input On Top - Full Width matching tabs & map */}
+              <div className="w-full relative h-9">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="ابحث هنا"
-                  className={`w-full py-3.5 sm:py-4 pr-12 pl-11 rounded-2xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-sm sm:text-base focus:outline-none transition-all floor-map-search-input ${
+                  className={`w-full h-full pr-9 pl-9 rounded-lg bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-xs focus:outline-none transition-all floor-map-search-input ${
                     gender === 'male' ? 'focus:border-blue-500' : 'focus:border-pink-500'
                   }`}
                 />
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-base sm:text-lg pointer-events-none">
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none">
                   <Icon name="fa-magnifying-glass" />
                 </div>
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
                   >
-                    <Icon name="fa-xmark" className="text-base" />
+                    <Icon name="fa-xmark" className="text-xs" />
                   </button>
                 )}
+              </div>
+
+              {/* Floors Tabs Side-by-Side Underneath Search */}
+              <div className="flex rounded-lg bg-white/5 p-1 border border-white/10 gap-1.5 w-full floor-map-tabs-container shadow-sm h-9 items-center">
+                {currentFloors.map(floor => {
+                  const isActive = activeFloorId === floor.id;
+                  return (
+                    <button
+                      key={floor.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveFloorId(floor.id);
+                        setActiveRoomDetail(null);
+                      }}
+                      className={`flex-1 h-full px-2.5 rounded-md text-xs font-bold transition-colors duration-100 flex items-center justify-center gap-1.5 cursor-pointer select-none whitespace-nowrap shrink-0 ${
+                        isActive
+                          ? gender === 'male'
+                            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
+                            : 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md'
+                          : 'text-slate-300 hover:text-white hover:bg-white/5 floor-map-tab-inactive'
+                      }`}
+                    >
+                      <Icon name={floor.id === 'ground' ? 'fa-layer-group' : 'fa-building'} className="text-xs shrink-0" />
+                      <span>{floor.title}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
