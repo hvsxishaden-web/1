@@ -319,31 +319,33 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/65 backdrop-blur-md transition-opacity duration-300">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/65 backdrop-blur-md transition-opacity duration-300">
         <motion.div
+          id="floor-map-modal-container"
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="relative w-full max-w-6xl my-auto rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white overflow-hidden flex flex-col max-h-[94vh] sm:max-h-[90vh] floor-map-modal-card"
+          className="relative w-full max-w-7xl max-h-[88vh] sm:max-h-[85vh] h-auto my-auto rounded-2xl sm:rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white flex flex-col overflow-hidden floor-map-modal-card"
           dir="rtl"
         >
           {/* Top Bar / Header */}
-          <div className={`p-4 sm:p-6 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between gap-4 shrink-0 ${
+          <div className={`pt-12 sm:pt-14 pb-5 sm:pb-6 px-6 sm:px-8 md:px-10 rounded-t-2xl sm:rounded-t-3xl bg-slate-900/90 flex items-center justify-between gap-3 sm:gap-4 shrink-0 relative z-30 ${
             gender === 'male'
               ? 'floor-map-modal-header-male'
               : 'floor-map-modal-header-female'
           }`}>
-            <div className="flex items-center gap-3.5">
-              <div className={`p-3 rounded-2xl border shrink-0 ${
+            {/* Title & Map Icon */}
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className={`p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl border shrink-0 flex items-center justify-center ${
                 gender === 'male'
                   ? 'bg-blue-500/15 border-blue-500/30 text-blue-400'
                   : 'bg-pink-500/15 border-pink-500/30 text-pink-400'
               }`}>
-                <Icon name="fa-map-location-dot" className="text-xl sm:text-2xl" />
+                <Icon name="fa-map-location-dot" className="text-base sm:text-2xl" />
               </div>
-              <div>
-                <h2 className="text-base sm:text-lg font-bold tracking-tight text-white floor-map-modal-title">
+              <div className="min-w-0 py-0.5">
+                <h2 className="text-sm sm:text-lg md:text-xl font-bold text-white leading-normal floor-map-modal-title truncate">
                   {gender === 'male' ? 'المقر الرئيسي - طلاب' : 'المقر الرئيسي - طالبات'}
                 </h2>
               </div>
@@ -353,44 +355,47 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
             <button
               type="button"
               onClick={onClose}
-              className="p-2.5 sm:p-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white transition-all border border-slate-700 hover:border-slate-500 floor-map-modal-close cursor-pointer shadow-sm flex items-center justify-center shrink-0 relative z-10"
+              className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white transition-all border border-slate-700 hover:border-slate-500 floor-map-modal-close cursor-pointer shadow-sm flex items-center justify-center shrink-0 relative z-30"
               aria-label="إغلاق"
             >
-              <Icon name="fa-xmark" className="text-xl sm:text-2xl" />
+              <Icon name="fa-xmark" className="text-lg sm:text-2xl" />
             </button>
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto px-3.5 sm:px-5 pt-3 sm:pt-4 pb-3.5 sm:pb-5 space-y-4 sm:space-y-5 custom-scrollbar rounded-b-3xl">
             {/* Controls Bar: Search & Floor Switcher Stacked tightly */}
-            <div className="flex flex-col gap-1.5 w-full mt-1 sm:mt-2 pb-1">
-              {/* Search Input On Top - Full Width matching tabs & map */}
-              <div className="w-full relative h-9">
+            <div className="flex flex-col gap-2 w-full mt-2 sm:mt-3 pb-0.5">
+              {/* Search Input On Top - Full width and compact vertical height */}
+              <div className="w-full relative h-6.5 sm:h-7.5" dir="rtl">
                 <input
                   type="text"
+                  dir="rtl"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  placeholder="ابحث هنا"
-                  className={`w-full h-full pr-9 pl-9 rounded-lg bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-xs focus:outline-none transition-all floor-map-search-input ${
+                  placeholder="ابحث هنا..."
+                  className={`w-full h-full rounded-lg bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-[11px] sm:text-xs focus:outline-none transition-all floor-map-search-input ${
                     gender === 'male' ? 'focus:border-blue-500' : 'focus:border-pink-500'
                   }`}
+                  style={{ paddingRight: '2rem', paddingLeft: '2rem', textAlign: 'right' }}
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none">
+                <div className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[11px] pointer-events-none z-10 flex items-center justify-center">
                   <Icon name="fa-magnifying-glass" />
                 </div>
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+                    className="absolute left-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5 z-20 flex items-center justify-center rounded hover:bg-white/10 transition-colors cursor-pointer"
+                    aria-label="مسح البحث"
                   >
-                    <Icon name="fa-xmark" className="text-xs" />
+                    <Icon name="fa-xmark" className="text-[10px]" />
                   </button>
                 )}
               </div>
 
               {/* Floors Tabs Side-by-Side Underneath Search */}
-              <div className="flex rounded-lg bg-white/5 p-1 border border-white/10 gap-1.5 w-full floor-map-tabs-container shadow-sm h-9 items-center">
+              <div className="flex rounded-lg bg-white/5 p-1 border border-white/10 gap-1 sm:gap-1.5 w-full floor-map-tabs-container shadow-sm h-8 sm:h-9 items-center overflow-x-auto custom-scrollbar">
                 {currentFloors.map(floor => {
                   const isActive = activeFloorId === floor.id;
                   return (
@@ -401,7 +406,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                         setActiveFloorId(floor.id);
                         setActiveRoomDetail(null);
                       }}
-                      className={`flex-1 h-full px-2.5 rounded-md text-xs font-bold transition-colors duration-100 flex items-center justify-center gap-1.5 cursor-pointer select-none whitespace-nowrap shrink-0 ${
+                      className={`flex-1 min-w-0 h-full px-2 sm:px-3 rounded-md text-[11px] sm:text-xs font-bold transition-all duration-150 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer select-none whitespace-nowrap ${
                         isActive
                           ? gender === 'male'
                             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
@@ -409,8 +414,8 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                           : 'text-slate-300 hover:text-white hover:bg-white/5 floor-map-tab-inactive'
                       }`}
                     >
-                      <Icon name={floor.id === 'ground' ? 'fa-layer-group' : 'fa-building'} className="text-xs shrink-0" />
-                      <span>{floor.title}</span>
+                      <Icon name={floor.id === 'ground' ? 'fa-layer-group' : 'fa-building'} className="text-[11px] sm:text-xs shrink-0" />
+                      <span className="truncate">{floor.title}</span>
                     </button>
                   );
                 })}
