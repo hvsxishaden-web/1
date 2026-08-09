@@ -6,7 +6,7 @@ interface MaleVisualBlueprintProps {
   searchQuery?: string;
 }
 
-export default function MaleVisualBlueprint({ floorId, searchQuery = '' }: MaleVisualBlueprintProps) {
+function MaleVisualBlueprint({ floorId, searchQuery = '' }: MaleVisualBlueprintProps) {
   const [zoom, setZoom] = useState<number>(1);
 
   const isMatch = (text: string) => {
@@ -794,67 +794,61 @@ export default function MaleVisualBlueprint({ floorId, searchQuery = '' }: MaleV
   );
 
   return (
-    <div className="w-full bg-[#161b26] p-4 sm:p-6 rounded-3xl border border-white/10 shadow-2xl flex flex-col items-center gap-5 min-w-[320px]">
-      {/* Floating Zoom Toolbar */}
-      <div className="w-full flex items-center justify-between gap-3 bg-slate-900/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 text-xs sm:text-sm">
-        <div className="flex items-center gap-2.5 text-blue-400 font-bold">
-          <Icon name="fa-map-location-dot" className="text-base" />
-          <span className="hidden sm:inline text-slate-200">مخطط كلية الحاسب</span>
-        </div>
-
-        <div className="flex items-center gap-2 mr-auto">
-          <div className="flex items-center bg-slate-800 rounded-xl p-1.5 border border-white/10 shadow-inner gap-1">
+    <div className="w-full bg-[#161b26] p-2.5 sm:p-3.5 rounded-2xl border border-white/10 shadow-xl flex flex-col min-w-[320px] floor-map-canvas-wrapper">
+      {/* Main SVG Container on crisp clean canvas with overlaid Zoom Controls & Rights */}
+      <div className="relative w-full overflow-hidden overflow-x-auto overflow-y-auto flex justify-center items-center py-4 px-3 sm:px-6 bg-white rounded-xl border border-slate-200 custom-scrollbar shadow-inner min-h-[300px] sm:min-h-[380px]">
+        {/* Zoom Controls Overlay - Top Left inside canvas */}
+        <div className="absolute top-3 left-3 z-20 flex items-center bg-blue-50/95 backdrop-blur-md rounded-xl p-1 border border-blue-200 shadow-md gap-1 text-xs" dir="ltr">
+          <button
+            type="button"
+            onClick={handleZoomOut}
+            className="px-2.5 py-1.5 rounded-lg hover:bg-blue-100 text-blue-700 transition-all cursor-pointer font-bold"
+            title="تصغير"
+          >
+            <Icon name="fa-minus" className="text-xs" />
+          </button>
+          <span className="px-2 font-mono font-extrabold text-blue-700 text-xs min-w-[44px] text-center">
+            {Math.round(zoom * 100)}%
+          </span>
+          <button
+            type="button"
+            onClick={handleZoomIn}
+            className="px-2.5 py-1.5 rounded-lg hover:bg-blue-100 text-blue-700 transition-all cursor-pointer font-bold"
+            title="تكبير"
+          >
+            <Icon name="fa-plus" className="text-xs" />
+          </button>
+          {zoom !== 1 && (
             <button
               type="button"
-              onClick={handleZoomOut}
-              className="px-3 py-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-all cursor-pointer"
-              title="تصغير"
+              onClick={handleResetZoom}
+              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition-all cursor-pointer ml-1 whitespace-nowrap shadow-sm"
+              dir="rtl"
             >
-              <Icon name="fa-minus" />
+              إعادة ضبط
             </button>
-            <span className="px-2 font-mono font-bold text-blue-400 min-w-[52px] text-center text-xs sm:text-sm">
-              {Math.round(zoom * 100)}%
-            </span>
-            <button
-              type="button"
-              onClick={handleZoomIn}
-              className="px-3 py-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-all cursor-pointer"
-              title="تكبير"
-            >
-              <Icon name="fa-plus" />
-            </button>
-            {zoom !== 1 && (
-              <button
-                type="button"
-                onClick={handleResetZoom}
-                className="px-3 py-1.5 mr-1 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white font-bold text-[11px] transition-all cursor-pointer shadow-sm"
-              >
-                إعادة ضبط
-              </button>
-            )}
-          </div>
+          )}
         </div>
-      </div>
 
-      {/* Main SVG Container on crisp clean canvas */}
-      <div className="relative w-full overflow-x-auto overflow-y-hidden flex flex-col items-center py-6 px-3 sm:px-6 bg-white rounded-2xl border border-slate-200 custom-scrollbar shadow-inner gap-4">
+        {/* Artist Credit Overlay - Bottom Left inside canvas */}
+        <div className="absolute bottom-3 left-3 z-20 flex items-center select-none" dir="ltr">
+          <span className="bg-blue-50/95 backdrop-blur-md text-blue-700 border border-blue-200 px-2.5 py-1 rounded-lg font-bold text-xs shadow-md flex items-center gap-1 floor-map-artist-credit">
+            <span className="text-blue-500 font-semibold text-[11px]">Made by</span>
+            <span className="text-blue-700 font-extrabold text-[11px]">Vilwsn</span>
+          </span>
+        </div>
+
         <div 
-          className="transition-transform duration-200 ease-out origin-top-center w-full max-w-5xl"
+          className="transition-transform duration-200 ease-out origin-center w-full max-w-5xl flex justify-center py-2"
           style={{ transform: `scale(${zoom})` }}
         >
           {floorId === 'ground' && renderGroundFloor()}
           {floorId === 'first' && renderFirstFloor()}
           {floorId === 'second' && renderSecondFloor()}
         </div>
-
-        {/* Credit badge inside the white screen at bottom left */}
-        <div className="w-full flex justify-start items-center pt-3 px-2 select-none" dir="ltr">
-          <span className="bg-slate-700 text-slate-100 border border-slate-600 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shadow-md flex items-center gap-2">
-            <span className="text-slate-200 font-medium">Made by</span>
-            <span className="text-blue-400 font-extrabold">Vilwsn</span>
-          </span>
-        </div>
       </div>
     </div>
   );
 }
+
+export default React.memo(MaleVisualBlueprint);
