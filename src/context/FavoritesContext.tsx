@@ -116,39 +116,39 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       {children}
       
       {/* Toast Notifications Container */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-3 max-w-sm w-full px-4 pointer-events-none">
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-3 max-w-[640px] w-[94vw] sm:w-full px-2 sm:px-4 pointer-events-none">
         <AnimatePresence>
           {toasts.map((toast) => (
             <motion.div
               key={toast.id}
               layout
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              initial={{ opacity: 0, y: 25, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95, transition: { duration: 0.15 } }}
-              className="pointer-events-auto flex items-center justify-between gap-3.5 px-4 py-3 rounded-2xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-md text-white font-sans text-sm w-full"
+              className="favorites-toast-card pointer-events-auto flex items-center justify-between gap-4 sm:gap-6 px-5 py-4 sm:px-7 sm:py-5 rounded-2xl sm:rounded-3xl bg-slate-900/95 border border-white/15 shadow-2xl backdrop-blur-xl text-white font-sans w-full min-h-[72px]"
               style={{
                 direction: 'rtl',
                 boxShadow: toast.type === 'add'
-                  ? '0 10px 25px -5px rgba(0,0,0,0.4), 0 0 15px -3px rgba(34,197,94,0.15)'
-                  : '0 10px 25px -5px rgba(0,0,0,0.4), 0 0 15px -3px rgba(239,68,68,0.15)'
+                  ? '0 16px 36px -6px rgba(0,0,0,0.55), 0 0 24px -2px rgba(34,197,94,0.25)'
+                  : '0 16px 36px -6px rgba(0,0,0,0.55), 0 0 24px -2px rgba(239,68,68,0.25)'
               }}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4 sm:gap-5 min-w-0 flex-1">
                 {/* Icon status indicator */}
-                <div className={`flex items-center justify-center w-8 h-8 rounded-xl shrink-0 ${
+                <div className={`flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl shrink-0 ${
                   toast.type === 'add'
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                    : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                    : 'bg-red-500/15 text-red-400 border border-red-500/30'
                 }`}>
-                  <Icon name={toast.type === 'add' ? 'fa-heart' : 'fa-trash-alt'} className="text-xs" />
+                  <Icon name={toast.type === 'add' ? 'fa-heart' : 'fa-trash-alt'} className="text-sm sm:text-base" />
                 </div>
                 
                 {/* Text fields */}
-                <div className="flex flex-col text-right pr-1">
-                  <span className="font-extrabold text-[13px] text-slate-100 leading-tight">
+                <div className="flex flex-col text-right pr-0.5 flex-1 min-w-0 justify-center gap-0.5">
+                  <span className="font-bold text-xs sm:text-sm text-slate-100 leading-snug break-words favorites-toast-msg">
                     {toast.message}
                   </span>
-                  <span className="text-[11px] text-slate-400 font-sans max-w-[200px] truncate leading-normal mt-0.5">
+                  <span className="text-[11px] sm:text-xs text-slate-300 font-normal leading-relaxed break-words line-clamp-2 favorites-toast-sub">
                     {toast.title}
                   </span>
                 </div>
@@ -157,9 +157,10 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
               {/* Close Button */}
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-slate-400 hover:text-slate-200 transition-colors p-1 flex items-center justify-center rounded-lg hover:bg-white/5 shrink-0"
+                className="text-slate-400 hover:text-white transition-colors p-2 flex items-center justify-center rounded-xl hover:bg-white/10 shrink-0 mr-1 cursor-pointer"
+                aria-label="إغلاق الإشعار"
               >
-                <Icon name="fa-times" className="text-xs" />
+                <Icon name="fa-times" className="text-xs sm:text-sm" />
               </button>
             </motion.div>
           ))}
