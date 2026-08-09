@@ -47,6 +47,7 @@ export function OwlIcon({ className, style }: { className?: string; style?: Reac
       <path d="M12 18c.8.8 1.7.8 2.5 0" />
     </svg>
   );
+  
 }
 
 export default function Icon({ name, className = '', style }: IconProps) {
