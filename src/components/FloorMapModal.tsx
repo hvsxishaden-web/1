@@ -423,29 +423,52 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
             </div>
 
               {/* Global search auto-switch notification */}
-              {globalSearchResults && globalSearchResults.length > 0 && searchQuery && (
-                <div className="p-3 rounded-xl bg-blue-900/30 border border-blue-500/30 text-xs text-blue-200 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <Icon name="fa-circle-info" className="text-blue-400 text-sm" />
-                    <span>عثرنا على نتائج مطابقة في:</span>
-                  </div>
-                  <div className="flex gap-1.5">
-                    {globalSearchResults.map(res => (
-                      <button
-                        key={res.floorId}
-                        type="button"
-                        onClick={() => setActiveFloorId(res.floorId)}
-                        className={`px-2.5 py-1 rounded-md text-xs font-semibold border ${
-                          activeFloorId === res.floorId
-                            ? 'bg-blue-500 text-white border-blue-400'
-                            : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
-                        }`}
-                      >
-                        {res.floorTitle} ({res.rooms.length})
-                      </button>
-                    ))}
-                  </div>
-                </div>
+              {searchQuery && globalSearchResults && (
+                <>
+                  {globalSearchResults.length > 0 ? (
+                    <div className={`p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 transition-colors shadow-lg ${
+                      gender === 'female'
+                        ? 'bg-rose-950/50 border-rose-500/40 text-rose-100'
+                        : 'bg-blue-950/50 border-blue-500/40 text-blue-100'
+                    }`}>
+                      <div className="flex items-center gap-2 font-bold">
+                        <Icon name="fa-circle-info" className={`text-base sm:text-lg shrink-0 ${
+                          gender === 'female' ? 'text-rose-400' : 'text-blue-400'
+                        }`} />
+                        <span>عثرنا على نتائج مطابقة في:</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-end">
+                        {globalSearchResults.map(res => (
+                          <button
+                            key={res.floorId}
+                            type="button"
+                            onClick={() => setActiveFloorId(res.floorId)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                              activeFloorId === res.floorId
+                                ? gender === 'female'
+                                  ? 'bg-rose-600 text-white border-rose-400 shadow-md scale-105'
+                                  : 'bg-blue-500 text-white border-blue-400 shadow-md scale-105'
+                                : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
+                            }`}
+                          >
+                            {res.floorTitle} ({res.rooms.length})
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={`p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex items-center gap-2.5 transition-colors font-medium shadow-lg ${
+                      gender === 'female'
+                        ? 'bg-rose-950/50 border-rose-500/40 text-rose-100'
+                        : 'bg-blue-950/50 border-blue-500/40 text-blue-100'
+                    }`}>
+                      <Icon name="fa-circle-info" className={`text-base sm:text-lg shrink-0 ${
+                        gender === 'female' ? 'text-rose-400' : 'text-blue-400'
+                      }`} />
+                      <span>عذرًا، لا يوجد نتائج متطابقة</span>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Visual Blueprint Diagram based on Gender */}
