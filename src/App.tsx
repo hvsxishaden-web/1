@@ -160,11 +160,15 @@ export default function App() {
       root.style.setProperty('--rgb-primary', rgb);
     }
 
-    // 2. Open Welcome modal check
-    const timer = setTimeout(() => {
-      setIsWelcomeOpen(true);
-    }, 500);
-    return () => clearTimeout(timer);
+    // 2. Open Welcome modal check (only on fresh tab/session visit, skipped on page refresh)
+    const hasSeenWelcome = sessionStorage.getItem('welcome_seen');
+    if (!hasSeenWelcome) {
+      const timer = setTimeout(() => {
+        setIsWelcomeOpen(true);
+        sessionStorage.setItem('welcome_seen', 'true');
+      }, 500);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const handleWelcomeClose = () => {
