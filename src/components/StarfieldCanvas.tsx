@@ -1,290 +1,174 @@
-import { useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { BaseLink } from '../types';
+import { useFavorites } from '../context/FavoritesContext';
+import { SITE_DATA } from '../data';
+import Icon from './Icon';
 
-export default function StarfieldCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+interface LinkButtonProps {
+  link: BaseLink;
+  showSource?: boolean;
+  key?: any;
+}
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let stars: Star[] = [];
-    let symbols: CodeSymbol[] = [];
-    const mouse = { x: -9999, y: -9999, radius: 220 };
-
-    function resizeCanvas() {
-      if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initElements();
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
-    };
-
-    class CodeSymbol {
-      x: number = 0;
-      y: number = 0;
-      vy: number = 0;
-      text: string = '';
-      fontSize: number = 0;
-      opacity: number = 0;
-      angle: number = 0;
-      spinSpeed: number = 0;
-
-      constructor() {
-        this.reset(true);
-      }
-
-      reset(initSpread = false) {
-        if (!canvas) return;
-        this.x = Math.random() * canvas.width;
-        this.y = initSpread ? Math.random() * canvas.height : canvas.height + 40;
-        this.vy = -(Math.random() * 0.35 + 0.15); // float up slowly
-        const characters = ['0', '1', '</>', '{ }', '[ ]', '=>', '++', '&&', 'git', 'cpu', 'web', '[]', '();', 'dir'];
-        this.text = characters[Math.floor(Math.random() * characters.length)];
-        this.fontSize = Math.floor(Math.random() * 6) + 11; // 11px to 17px
-        this.opacity = Math.random() * 0.18 + 0.08; // very subtle background
-        this.angle = (Math.random() - 0.5) * 0.15;
-        this.spinSpeed = (Math.random() - 0.5) * 0.002;
-      }
-
-      update() {
-        if (!canvas) return;
-        this.y += this.vy;
-        this.angle += this.spinSpeed;
-
-        if (this.y < -40) {
-          this.reset(false);
-        }
-
-        // Slight hover reaction
-        if (mouse.x !== -9999) {
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            this.x += (dx / dist) * force * 1.2;
-            this.y += (dy / dist) * force * 1.2;
-          }
-        }
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.font = `${this.fontSize}px "JetBrains Mono", Consolas, monospace`;
-        
-        const isLight = document.body.classList.contains('light-mode');
-        ctx.fillStyle = isLight 
-          ? `rgba(37, 99, 235, ${this.opacity * 1.8})` 
-          : `rgba(147, 197, 253, ${this.opacity})`;
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = isLight ? 'rgba(37, 99, 235, 0.2)' : 'rgba(147, 197, 253, 0.4)';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.text, 0, 0);
-        ctx.restore();
+export function findLinkSource(href: string) {
+  for (const card of SITE_DATA) {
+    if (card.links) {
+      const match = card.links.find(l => l.href === href);
+      if (match) {
+        return { cardTitle: card.title, sectionTitle: '' };
       }
     }
-
-    class Star {
-      x: number = 0;
-      y: number = 0;
-      baseX: number = 0;
-      baseY: number = 0;
-      vx: number = 0;
-      vy: number = 0;
-      radius: number = 0;
-      alpha: number = 0;
-      pulseSpeed: number = 0;
-      pulsePhase: number = 0;
-      color: string = '';
-
-      constructor() {
-        this.reset();
-        // Distribute randomly across the initial screen
-        if (canvas) {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.baseX = this.x;
-          this.baseY = this.y;
-        }
-      }
-
-      reset() {
-        if (!canvas) return;
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.vx = (Math.random() - 0.5) * 0.12; // Slow elegant drifting
-        this.vy = (Math.random() - 0.5) * 0.12;
-        this.radius = Math.random() * 1.5 + 0.6; // Smaller, delicate stardust dots
-        this.alpha = Math.random() * 0.6 + 0.15;
-        this.pulseSpeed = Math.random() * 0.02 + 0.005;
-        this.pulsePhase = Math.random() * Math.PI * 2;
-
-        const colors = [
-          'rgba(255, 255, 255, ',
-          'rgba(147, 197, 253, ', // Soft sky blue accent
-          'rgba(196, 181, 253, ', // Soft lavender
-          'rgba(103, 114, 229, ', // Indigo
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      update() {
-        if (!canvas) return;
-        
-        // Gentle slow linear drift
-        this.baseX += this.vx;
-        this.baseY += this.vy;
-
-        // Wrap around boundaries gracefully
-        if (this.baseX < 0) this.baseX = canvas.width;
-        if (this.baseX > canvas.width) this.baseX = 0;
-        if (this.baseY < 0) this.baseY = canvas.height;
-        if (this.baseY > canvas.height) this.baseY = 0;
-
-        this.x = this.baseX;
-        this.y = this.baseY;
-
-        // Twinkle factor via sine wave
-        this.pulsePhase += this.pulseSpeed;
-
-        // Organic attraction wave to mouse position
-        if (mouse.x !== -9999) {
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            // Elastic orbital pull
-            this.x += (dx / dist) * force * 12;
-            this.y += (dy / dist) * force * 12;
-          }
-        }
-      }
-
-      draw() {
-        if (!ctx) return;
-        const currentAlpha = Math.max(0.05, Math.min(1, this.alpha * (0.6 + Math.sin(this.pulsePhase) * 0.4)));
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${this.color}${currentAlpha})`;
-        ctx.fill();
-        
-        // Tiny delicate outer glow for larger stars
-        if (this.radius > 1.4) {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = `${this.color}${currentAlpha * 0.15})`;
-          ctx.fill();
-        }
-      }
-    }
-
-    function initElements() {
-      if (!canvas) return;
-      stars = [];
-      symbols = [];
-      const w = canvas.width;
-      const h = canvas.height;
-
-      // Fewer, higher-quality stars for a pristine look (prevents performance lag & clutter)
-      const count = Math.min(110, Math.floor((w * h) / 12000));
-      for (let i = 0; i < count; i++) {
-        stars.push(new Star());
-      }
-
-      // Initialize code symbols floating layer
-      const symbolCount = Math.min(25, Math.floor((w * h) / 30000));
-      for (let i = 0; i < symbolCount; i++) {
-        symbols.push(new CodeSymbol());
-      }
-    }
-
-    let animationFrameId: number;
-    function animate() {
-      if (!ctx || !canvas) return;
-      animationFrameId = requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 1. Draw smooth interactive spotlight glow
-      if (mouse.x !== -9999) {
-        const gradient = ctx.createRadialGradient(
-          mouse.x, mouse.y, 0,
-          mouse.x, mouse.y, mouse.radius * 1.5
-        );
-        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.04)');
-        gradient.addColorStop(0.5, 'rgba(147, 197, 253, 0.01)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, mouse.radius * 1.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // 1.5. Draw and update Code Symbols (background layer)
-      for (let i = 0; i < symbols.length; i++) {
-        symbols[i].update();
-        symbols[i].draw();
-      }
-
-      // 2. Draw stars & thin constellation lines
-      for (let i = 0; i < stars.length; i++) {
-        stars[i].update();
-        stars[i].draw();
-
-        // Elegant constellation connection lines between close star nodes
-        for (let j = i + 1; j < stars.length; j++) {
-          const dx = stars[i].x - stars[j].x;
-          const dy = stars[i].y - stars[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.moveTo(stars[i].x, stars[i].y);
-            ctx.lineTo(stars[j].x, stars[j].y);
-            const alpha = ((110 - dist) / 110) * 0.05 * stars[i].alpha;
-            ctx.strokeStyle = `rgba(180, 198, 255, ${alpha})`;
-            ctx.lineWidth = 0.55;
-            ctx.stroke();
+    if (card.sections) {
+      for (const section of card.sections) {
+        if (section.links) {
+          const match = section.links.find(l => l.href === href);
+          if (match) {
+            return { cardTitle: card.title, sectionTitle: section.title };
           }
         }
       }
     }
+    if (card.initiatives && card.initiatives.links) {
+      const match = card.initiatives.links.find(l => l.href === href);
+      if (match) {
+        return { cardTitle: card.title, sectionTitle: card.initiatives.title };
+      }
+    }
+    if (card.departments) {
+      for (const dept of card.departments) {
+        if (dept.links) {
+          const match = dept.links.find(l => l.href === href);
+          if (match) {
+            return { cardTitle: card.title, sectionTitle: dept.title };
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('resize', resizeCanvas);
+export default function LinkButton({ link, showSource = false }: LinkButtonProps) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const [clickState, setClickState] = useState<'normal' | 'loading' | 'failed' | 'fading-out' | 'removed'>('normal');
+  const lastClickTime = useRef<number>(0);
+  const timeouts = useRef<number[]>([]);
 
-    resizeCanvas();
-    animate();
+  const favorited = isFavorite(link.href);
+  const source = showSource ? findLinkSource(link.href) : null;
 
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+  if (clickState === 'removed') return null;
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (link.specialAction === 'male-floor-plan' || link.href === '#floor-plan-male') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-floor-plan', { detail: { gender: 'male' } }));
+      return;
+    }
+
+    if (link.specialAction === 'female-floor-plan' || link.href === '#floor-plan-female') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-floor-plan', { detail: { gender: 'female' } }));
+      return;
+    }
+
+    if (link.href === '#') {
+      e.preventDefault();
+      return;
+    }
+
+    if (link.specialAction === 'ghim-fail') {
+      e.preventDefault();
+
+      const DBL_CLICK_THRESHOLD = 400;
+      const now = new Date().getTime();
+      const lastClick = lastClickTime.current;
+
+      if (now - lastClick < DBL_CLICK_THRESHOLD) {
+        timeouts.current.forEach(t => window.clearTimeout(t));
+        setClickState('normal');
+        window.open(link.href, '_blank', 'noopener,noreferrer');
+      } else {
+        lastClickTime.current = now;
+
+        if (clickState !== 'normal') return;
+
+        const t1 = window.setTimeout(() => setClickState('loading'), 10);
+        const t2 = window.setTimeout(() => setClickState('failed'), 1500);
+        const t3 = window.setTimeout(() => setClickState('fading-out'), 3500);
+        const t4 = window.setTimeout(() => setClickState('removed'), 4100);
+
+        timeouts.current = [t1, t2, t3, t4];
+      }
+    }
+  };
+
+  const getButtonClass = () => {
+    let cls = 'link-button';
+    if (clickState === 'loading') cls += ' is-loading';
+    if (clickState === 'failed') cls += ' is-failed';
+    if (clickState === 'fading-out') cls += ' is-fading-out';
+    return cls;
+  };
+
+  const isGhim = link.specialAction === 'ghim-fail';
 
   return (
-    <div className="cosmic-bg-container" id="starfield-container">
-      <canvas id="starfield-canvas" ref={canvasRef} />
+    <div className="relative w-full group z-10">
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${getButtonClass()} pl-14 pr-6`}
+        onClick={handleClick}
+      >
+        <span className="btn-content-wrapper">
+          <span className="btn-content original flex flex-col md:flex-row md:items-center justify-center gap-1.5 md:gap-3">
+            <span className="flex flex-col items-center justify-center gap-0.5">
+              <span className="flex items-center gap-2">
+                {link.icon && <Icon name={link.icon} />}
+                <span>{link.text}</span>
+              </span>
+              {link.subtext && (
+                <span className="text-[11px] font-medium text-amber-300/90 leading-tight">
+                  {link.subtext}
+                </span>
+              )}
+            </span>
+            {showSource && source && (
+              <span className="inline-flex items-center text-[10px] md:text-[11px] font-medium bg-amber-400/10 text-amber-300 px-3 py-1 rounded-full border border-amber-400/20 whitespace-nowrap self-center transition-all leading-none">
+                {source.cardTitle}{source.sectionTitle ? ` • ${source.sectionTitle}` : ''}
+              </span>
+            )}
+          </span>
+          
+          {isGhim && (
+            <>
+              <span className="btn-content loading">
+                <i className="fas fa-spinner fa-spin"></i>
+                <span>جاري التحميل...</span>
+              </span>
+              <span className="btn-content failed">
+                <i className="fas fa-exclamation-circle"></i>
+                <span>فشل التحميل</span>
+              </span>
+            </>
+          )}
+        </span>
+      </a>
+      
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleFavorite(link);
+        }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/5 border border-white/10 text-amber-400 cursor-pointer hover:bg-amber-400/20 hover:border-amber-400/40 active:scale-90 transition-all duration-200"
+        aria-label={favorited ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+        title={favorited ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+      >
+        <i className={`${favorited ? 'fas fa-star text-amber-400' : 'far fa-star text-gray-400 group-hover:text-amber-400/80'} text-base`} />
+      </button>
     </div>
   );
 }
