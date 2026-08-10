@@ -315,6 +315,7 @@ hr.card-separator { border: 0; height: 1px; background: var(--border); margin: 2
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1.4 !important;
+  color: #fde68a !important;
 }
 .light-mode .welcome-reminder-text {
   color: #78350f !important;
@@ -330,6 +331,23 @@ hr.card-separator { border: 0; height: 1px; background: var(--border); margin: 2
 }
 .light-mode .favorites-toast-sub {
   color: #475569 !important;
+}
+.light-mode .favorites-toast-icon-add {
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border-color: #a7f3d0 !important;
+}
+.light-mode .favorites-toast-icon-remove {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border-color: #fecaca !important;
+}
+.light-mode .favorites-toast-close {
+  color: #64748b !important;
+}
+.light-mode .favorites-toast-close:hover {
+  color: #0f172a !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
 }
 .light-mode .mode-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
 .light-mode .department-section { background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.08), transparent 50%), #ffffff; }
