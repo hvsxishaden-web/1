@@ -58,6 +58,7 @@ export default function LinkButton({ link, showSource = false }: LinkButtonProps
   const source = showSource ? findLinkSource(link.href) : null;
 
   if (clickState === 'removed') return null;
+  
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (link.specialAction === 'male-floor-plan' || link.href === '#floor-plan-male') {
