@@ -21,7 +21,7 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
   const getTextStyle = (text: string) => {
     return isMatch(text)
       ? "fill-amber-600 font-black text-[15px] animate-pulse"
-      : "fill-[#1e3a8a] font-bold text-[13px] sm:text-[14px]";
+      : "fill-[#881337] font-bold text-[13px] sm:text-[14px]";
   };
 
   const getHighlightBg = (text: string, x: number, y: number, width = 50, height = 22) => {
@@ -45,8 +45,8 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
     <svg viewBox="0 0 900 480" className="w-full max-w-4xl h-auto select-none" dir="rtl">
       {/* Top Title Pill */}
       <g>
-        <rect x="360" y="10" width="180" height="36" rx="18" fill="#fecdd3" stroke="#f43f5e" strokeWidth="1.5" />
-        <text x="450" y="33" textAnchor="middle" className="fill-rose-900 font-extrabold text-[16px]">الدور الأرضي</text>
+        <rect x="380" y="10" width="140" height="28" rx="14" fill="#ffe4e6" stroke="#fda4af" strokeWidth="1.2" />
+        <text x="450" y="28" textAnchor="middle" className="fill-rose-800 font-bold text-[12px]">الدور الأرضي</text>
       </g>
 
       {/* Top Facilities Labels (Above building) */}
@@ -122,7 +122,7 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
       {/* CENTER BOTTOM: الباب الرئيسي */}
       <g>
         {getHighlightBg('الباب الرئيسي', 450, 426, 100)}
-        <text x="450" y="430" textAnchor="middle" className="fill-blue-900 font-extrabold text-[14px]">الباب الرئيسي</text>
+        <text x="450" y="430" textAnchor="middle" className="fill-rose-900 font-extrabold text-[14px]">الباب الرئيسي</text>
       </g>
 
       {/* RIGHT WING OUTWALL */}
@@ -186,8 +186,8 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
     <svg viewBox="0 0 900 480" className="w-full max-w-4xl h-auto select-none" dir="rtl">
       {/* Top Title Pill */}
       <g>
-        <rect x="360" y="10" width="180" height="36" rx="18" fill="#fecdd3" stroke="#f43f5e" strokeWidth="1.5" />
-        <text x="450" y="33" textAnchor="middle" className="fill-rose-900 font-extrabold text-[16px]">الدور الأول</text>
+        <rect x="380" y="10" width="140" height="28" rx="14" fill="#ffe4e6" stroke="#fda4af" strokeWidth="1.2" />
+        <text x="450" y="28" textAnchor="middle" className="fill-rose-800 font-bold text-[12px]">الدور الأول</text>
       </g>
 
       {/* Top Center Label: الواجهة المطلة */}
