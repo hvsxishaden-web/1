@@ -326,26 +326,26 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="relative w-full max-w-7xl max-h-[88vh] sm:max-h-[85vh] h-auto my-auto rounded-2xl sm:rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white flex flex-col overflow-hidden floor-map-modal-card"
+          className="relative w-full max-w-6xl max-h-[85vh] sm:max-h-[88vh] my-auto rounded-2xl sm:rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white flex flex-col overflow-hidden floor-map-modal-card"
           dir="rtl"
         >
           {/* Top Bar / Header */}
-          <div className={`pt-12 sm:pt-14 pb-5 sm:pb-6 px-6 sm:px-8 md:px-10 rounded-t-2xl sm:rounded-t-3xl bg-slate-900/90 flex items-center justify-between gap-3 sm:gap-4 shrink-0 relative z-30 ${
+          <div className={`pt-4 sm:pt-5 pb-3 sm:pb-4 px-5 sm:px-8 md:px-10 rounded-t-2xl sm:rounded-t-3xl bg-slate-900/90 flex items-center justify-between gap-3 sm:gap-4 shrink-0 relative z-30 floor-map-header-bar ${
             gender === 'male'
               ? 'floor-map-modal-header-male'
               : 'floor-map-modal-header-female'
           }`}>
             {/* Title & Map Icon */}
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <div className={`p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl border shrink-0 flex items-center justify-center ${
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              <div className={`p-2 sm:p-2.5 rounded-xl shrink-0 flex items-center justify-center ${
                 gender === 'male'
                   ? 'bg-blue-500/15 border-blue-500/30 text-blue-400'
                   : 'bg-pink-500/15 border-pink-500/30 text-pink-400'
               }`}>
-                <Icon name="fa-map-location-dot" className="text-base sm:text-2xl" />
+                <Icon name="fa-map-location-dot" className="text-base sm:text-lg" />
               </div>
-              <div className="min-w-0 py-0.5">
-                <h2 className="text-sm sm:text-lg md:text-xl font-bold text-white leading-normal floor-map-modal-title truncate">
+              <div className="py-0.5 shrink-0">
+                <h2 className="text-sm sm:text-base md:text-lg font-bold text-white leading-normal floor-map-modal-title whitespace-nowrap px-0.5">
                   {gender === 'male' ? 'المقر الرئيسي - طلاب' : 'المقر الرئيسي - طالبات'}
                 </h2>
               </div>
@@ -355,10 +355,10 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
             <button
               type="button"
               onClick={onClose}
-              className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white transition-all border border-slate-700 hover:border-slate-500 floor-map-modal-close cursor-pointer shadow-sm flex items-center justify-center shrink-0 relative z-30"
+              className="p-2 sm:p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white transition-all border border-slate-700 hover:border-slate-500 floor-map-modal-close cursor-pointer shadow-sm flex items-center justify-center shrink-0 relative z-30 translate-x-1.5 sm:translate-x-2 -translate-y-1 sm:-translate-y-1.5"
               aria-label="إغلاق"
             >
-              <Icon name="fa-xmark" className="text-lg sm:text-2xl" />
+              <Icon name="fa-xmark" className="text-base sm:text-lg" />
             </button>
           </div>
 
@@ -374,7 +374,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="ابحث هنا..."
-                  className={`w-full h-full rounded-lg bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-[11px] sm:text-xs focus:outline-none transition-all floor-map-search-input ${
+                  className={`w-full h-full rounded-lg bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 text-[10px] sm:text-xs focus:outline-none transition-all floor-map-search-input ${
                     gender === 'male' ? 'focus:border-blue-500' : 'focus:border-pink-500'
                   }`}
                   style={{ paddingRight: '2rem', paddingLeft: '2rem', textAlign: 'right' }}
