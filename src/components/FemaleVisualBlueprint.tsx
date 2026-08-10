@@ -19,9 +19,10 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
   };
 
   const getTextStyle = (text: string) => {
-    return isMatch(text)
-      ? "fill-amber-600 font-black text-[15px] animate-pulse"
-      : "fill-[#881337] font-bold text-[13px] sm:text-[14px]";
+    if (isMatch(text)) {
+      return "fill-amber-600 font-black text-[15px] animate-pulse";
+    }
+    return "fill-[#1e3a8a] font-bold text-[13px] sm:text-[14px]";
   };
 
   const getHighlightBg = (text: string, x: number, y: number, width = 50, height = 22) => {
@@ -122,7 +123,7 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
       {/* CENTER BOTTOM: الباب الرئيسي */}
       <g>
         {getHighlightBg('الباب الرئيسي', 450, 426, 100)}
-        <text x="450" y="430" textAnchor="middle" className="fill-rose-900 font-extrabold text-[14px]">الباب الرئيسي</text>
+        <text x="450" y="430" textAnchor="middle" className="fill-[#1e3a8a] font-extrabold text-[14px]">الباب الرئيسي</text>
       </g>
 
       {/* RIGHT WING OUTWALL */}
