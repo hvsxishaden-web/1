@@ -46,7 +46,7 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
                   <i className="fas fa-heart text-[10px]"></i>
                 </div>
                 <p className="text-xs sm:text-sm font-medium text-center welcome-reminder-text">
-                  لا إله إلا أنت سبحانك اني كنت من الظالمين
+                  لَا إِلَهَ إِلَّا أَنتَ سُبحَانَكَ، إِنّي كُنتُ مِنَ الظّالِمِين.
                 </p>
               </div>
             </div>
