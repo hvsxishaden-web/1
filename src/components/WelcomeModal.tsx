@@ -42,8 +42,9 @@ export default function WelcomeModal({ isOpen, onClose }: WelcomeModalProps) {
               <p>دليلك الأكاديمي للوصول إلى ما تحتاج خلال رحلتك الجامعية</p>
               <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl text-center relative overflow-hidden welcome-reminder-box">
                 <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm font-bold welcome-reminder-title">
+                  <span className="text-[11px] sm:text-xs">✦</span>
                   <span>تذكير</span>
-                  <i className="fas fa-heart text-[10px]"></i>
+                  <span className="text-[11px] sm:text-xs">✦</span>
                 </div>
                 <p className="text-xs sm:text-sm font-medium text-center welcome-reminder-text">
                   لَا إِلَهَ إِلَّا أَنتَ سُبحَانَكَ، إِنّي كُنتُ مِنَ الظّالِمِين.
