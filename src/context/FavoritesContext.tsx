@@ -89,14 +89,13 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleFavorite = (link: BaseLink) => {
-    let isAdded = false;
+    const exists = favorites.some((fav) => fav.href === link.href);
+    const willBeAdded = !exists;
+
     setFavorites((prev) => {
-      const exists = prev.some((fav) => fav.href === link.href);
       if (exists) {
-        isAdded = false;
         return prev.filter((fav) => fav.href !== link.href);
       } else {
-        isAdded = true;
         return [...prev, link];
       }
     });
@@ -104,7 +103,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     const source = findLinkSource(link.href);
     const levelName = source ? source.cardTitle : '';
     const title = link.text || 'الرابط المختار';
-    addToast(title, isAdded ? 'add' : 'remove', levelName);
+    addToast(title, willBeAdded ? 'add' : 'remove', levelName);
   };
 
   const isFavorite = (href: string) => {
@@ -137,8 +136,8 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
                 {/* Icon status indicator */}
                 <div className={`flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl shrink-0 ${
                   toast.type === 'add'
-                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                    : 'bg-red-500/15 text-red-400 border border-red-500/30'
+                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 favorites-toast-icon-add'
+                    : 'bg-red-500/15 text-red-400 border border-red-500/30 favorites-toast-icon-remove'
                 }`}>
                   <Icon name={toast.type === 'add' ? 'fa-heart' : 'fa-trash-alt'} className="text-sm sm:text-base" />
                 </div>
@@ -157,7 +156,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
               {/* Close Button */}
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-slate-400 hover:text-white transition-colors p-2 flex items-center justify-center rounded-xl hover:bg-white/10 shrink-0 mr-1 cursor-pointer"
+                className="text-slate-400 hover:text-white transition-colors p-2 flex items-center justify-center rounded-xl hover:bg-white/10 shrink-0 mr-1 cursor-pointer favorites-toast-close"
                 aria-label="إغلاق الإشعار"
               >
                 <Icon name="fa-times" className="text-xs sm:text-sm" />
