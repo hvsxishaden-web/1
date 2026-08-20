@@ -22,6 +22,9 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
     if (isMatch(text)) {
       return "fill-amber-600 font-black text-[15px] animate-pulse";
     }
+    if (text === 'الدرج' || text === 'المصعد' || text === 'المصلى') {
+      return "fill-[#1e3a8a] font-semibold text-[10px] sm:text-[11px]";
+    }
     return "fill-[#1e3a8a] font-bold text-[13px] sm:text-[14px]";
   };
 
@@ -151,12 +154,12 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
       {getHighlightBg('2058', 690, 210, 50)}
       <text x="690" y="214" textAnchor="middle" className={getTextStyle('2058')}>2058</text>
 
-      {getHighlightBg('المصلى', 545, 234, 60)}
+      {getHighlightBg('المصلى', 545, 234, 50)}
       <text x="545" y="238" textAnchor="middle" className={getTextStyle('المصلى')}>المصلى</text>
       {getHighlightBg('الدرج', 545, 285, 50)}
       <text x="545" y="289" textAnchor="middle" className={getTextStyle('الدرج')}>الدرج</text>
-      {getHighlightBg('المصعد', 545, 312, 60)}
-      <text x="545" y="316" textAnchor="middle" className={getTextStyle('المصعد')}>المصعد</text>
+      {getHighlightBg('المصعد', 545, 303, 50)}
+      <text x="545" y="307" textAnchor="middle" className={getTextStyle('المصعد')}>المصعد</text>
 
       {getHighlightBg('2065', 570, 330, 50)}
       <text x="570" y="334" textAnchor="middle" className={getTextStyle('2065')}>2065</text>
