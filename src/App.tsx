@@ -7,6 +7,8 @@ import LinkCard from './components/LinkCard';
 import LinkButton from './components/LinkButton';
 import WelcomeModal from './components/WelcomeModal';
 import FloorMapModal from './components/FloorMapModal';
+import OfflineIndicator from './components/OfflineIndicator';
+import VisitorCounter from './components/VisitorCounter';
 import { useFavorites } from './context/FavoritesContext';
 
 const containerVariants = {
@@ -207,6 +209,9 @@ export default function App() {
 
   return (
     <>
+      {/* Offline Status Indicator */}
+      <OfflineIndicator />
+
       {/* 3D Cosmic Space and Parallax Starfield Canvas */}
       <StarfieldCanvas />
 
@@ -504,7 +509,7 @@ export default function App() {
           </main>
 
           {/* Footer Controls */}
-          <footer className="page-footer flex items-center justify-between w-full" dir="rtl">
+          <footer className="page-footer flex flex-col sm:flex-row items-center justify-between gap-4 w-full" dir="rtl">
             <div className="footer-controls flex items-center gap-3">
               <a
                 href="https://t.me/Sherisherre"
@@ -525,9 +530,11 @@ export default function App() {
               >
                 <i className={`fas ${themeMode === 'dark' ? 'fa-sun text-amber-400' : 'fa-moon text-blue-500'}`}></i>
               </button>
+
+              <VisitorCounter />
             </div>
             
-            <span className="footer-link text-base font-medium text-[var(--text-medium)] hover:text-[var(--text-light)] transition-colors duration-250">
+            <span className="footer-link text-base font-medium text-[var(--text-medium)] hover:text-[var(--text-light)] transition-colors duration-250 select-none">
               Developed by Sherisherre
             </span>
           </footer>
