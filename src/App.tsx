@@ -8,7 +8,6 @@ import LinkButton from './components/LinkButton';
 import WelcomeModal from './components/WelcomeModal';
 import FloorMapModal from './components/FloorMapModal';
 import OfflineIndicator from './components/OfflineIndicator';
-import VisitorCounter from './components/VisitorCounter';
 import { useFavorites } from './context/FavoritesContext';
 
 const containerVariants = {
@@ -33,7 +32,7 @@ export default function App() {
   const [activePrimaryFilter, setActivePrimaryFilter] = useState<string>('college');
   const [activeLevelFilter, setActiveLevelFilter] = useState<string>('level-1');
   const [activeCampusFilter, setActiveCampusFilter] = useState<string>('campus-main');
-  const [isWelcomeOpen, setIsWelcomeOpen] = useState<boolean>(true);
+  const [isWelcomeOpen, setIsWelcomeOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFloorMapOpen, setIsFloorMapOpen] = useState<boolean>(false);
   const [floorMapGender, setFloorMapGender] = useState<'male' | 'female'>('male');
@@ -530,8 +529,6 @@ export default function App() {
               >
                 <i className={`fas ${themeMode === 'dark' ? 'fa-sun text-amber-400' : 'fa-moon text-blue-500'}`}></i>
               </button>
-
-              <VisitorCounter />
             </div>
             
             <span className="footer-link text-base font-medium text-[var(--text-medium)] hover:text-[var(--text-light)] transition-colors duration-250 select-none">
