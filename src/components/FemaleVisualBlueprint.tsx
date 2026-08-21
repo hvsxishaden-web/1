@@ -337,6 +337,7 @@ function FemaleVisualBlueprint({ floorId, searchQuery = '' }: FemaleVisualBluepr
             </button>
           )}
         </div>
+        
 
         {/* Artist Credit Overlay - Bottom Left inside canvas */}
         <div className="absolute bottom-3 left-3 z-20 flex items-center select-none" dir="ltr">
