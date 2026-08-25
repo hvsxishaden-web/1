@@ -344,10 +344,17 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
               }`}>
                 <Icon name="fa-map-location-dot" className="text-base sm:text-lg" />
               </div>
-              <div className="py-0.5 shrink-0">
+              <div className="py-0.5 shrink-0 flex items-center gap-2 flex-wrap">
                 <h2 className="text-sm sm:text-base md:text-lg font-bold text-white leading-normal floor-map-modal-title whitespace-nowrap px-0.5">
                   {gender === 'male' ? 'المقر الرئيسي - طلاب' : 'المقر الرئيسي - طالبات'}
                 </h2>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold border shrink-0 transition-colors ${
+                  gender === 'male'
+                    ? 'bg-blue-500/25 text-blue-200 border-blue-400/40 floor-map-building-badge-male'
+                    : 'bg-pink-500/25 text-pink-200 border-pink-400/40 floor-map-building-badge-female'
+                }`}>
+                  {gender === 'male' ? 'مبنى C1' : 'مبنى F5'}
+                </span>
               </div>
             </div>
 
@@ -426,15 +433,9 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
               {searchQuery && globalSearchResults && (
                 <>
                   {globalSearchResults.length > 0 ? (
-                    <div className={`p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 transition-colors shadow-lg ${
-                      gender === 'female'
-                        ? 'bg-rose-950/50 border-rose-500/40 text-rose-100'
-                        : 'bg-blue-950/50 border-blue-500/40 text-blue-100'
-                    }`}>
+                    <div className="p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 transition-colors shadow-lg bg-blue-950/50 border-blue-500/40 text-blue-100">
                       <div className="flex items-center gap-2 font-bold">
-                        <Icon name="fa-circle-info" className={`text-base sm:text-lg shrink-0 ${
-                          gender === 'female' ? 'text-rose-400' : 'text-blue-400'
-                        }`} />
+                        <Icon name="fa-circle-info" className="text-base sm:text-lg shrink-0 text-blue-400" />
                         <span>عثرنا على نتائج مطابقة في:</span>
                       </div>
                       <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-end">
@@ -445,9 +446,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                             onClick={() => setActiveFloorId(res.floorId)}
                             className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
                               activeFloorId === res.floorId
-                                ? gender === 'female'
-                                  ? 'bg-rose-600 text-white border-rose-400 shadow-md scale-105'
-                                  : 'bg-blue-500 text-white border-blue-400 shadow-md scale-105'
+                                ? 'bg-blue-500 text-white border-blue-400 shadow-md scale-105'
                                 : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
                             }`}
                           >
@@ -457,14 +456,8 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                       </div>
                     </div>
                   ) : (
-                    <div className={`p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex items-center gap-2.5 transition-colors font-medium shadow-lg ${
-                      gender === 'female'
-                        ? 'bg-rose-950/50 border-rose-500/40 text-rose-100'
-                        : 'bg-blue-950/50 border-blue-500/40 text-blue-100'
-                    }`}>
-                      <Icon name="fa-circle-info" className={`text-base sm:text-lg shrink-0 ${
-                        gender === 'female' ? 'text-rose-400' : 'text-blue-400'
-                      }`} />
+                    <div className="p-4 sm:p-5 rounded-2xl border text-xs sm:text-sm flex items-center gap-2.5 transition-colors font-medium shadow-lg bg-blue-950/50 border-blue-500/40 text-blue-100">
+                      <Icon name="fa-circle-info" className="text-base sm:text-lg shrink-0 text-blue-400" />
                       <span>عذرًا، لا يوجد نتائج متطابقة</span>
                     </div>
                   )}
