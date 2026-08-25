@@ -508,11 +508,16 @@ export default function App() {
           </main>
 
           {/* Footer Controls */}
-          <footer className="page-footer flex flex-col sm:flex-row items-center justify-between gap-4 w-full" dir="rtl">
-            <div className="footer-controls flex items-center gap-3">
+          <footer
+            id="main-app-footer"
+            className="page-footer w-full flex flex-row items-center justify-between gap-3 pt-3 mt-10 sm:mt-14 border-t border-[var(--border)] select-none"
+            dir="rtl"
+          >
+            {/* Right Side: Telegram & Theme Toggle (أقصى اليمين) */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <a
                 href="https://t.me/Sherisherre"
-                className="footer-icon-btn text-2xl"
+                className="footer-icon-btn text-2xl hover:text-sky-400 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="تواصل معي على تليجرام"
@@ -522,18 +527,26 @@ export default function App() {
               </a>
 
               <button
+                type="button"
                 onClick={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')}
-                className="footer-icon-btn text-xl"
+                className="footer-icon-btn text-xl transition-transform active:scale-90"
                 title={themeMode === 'dark' ? 'التحويل للمظهر الفاتح' : 'التحويل للمظهر الداكن'}
                 aria-label="تبديل مظهر الموقع"
               >
                 <i className={`fas ${themeMode === 'dark' ? 'fa-sun text-amber-400' : 'fa-moon text-blue-500'}`}></i>
               </button>
             </div>
-            
-            <span className="footer-link text-base font-medium text-[var(--text-medium)] hover:text-[var(--text-light)] transition-colors duration-250 select-none">
+
+            {/* Left Side: Developer Username (أقصى اليسار) */}
+            <a
+              href="https://t.me/Sherisherre"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs sm:text-sm md:text-base font-semibold text-[var(--text-medium)] hover:text-[var(--text-light)] transition-all duration-200 whitespace-nowrap hover:underline decoration-white/20 underline-offset-4"
+              dir="ltr"
+            >
               Developed by Sherisherre
-            </span>
+            </a>
           </footer>
         </div>
       </div>
