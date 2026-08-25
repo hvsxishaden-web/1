@@ -336,7 +336,7 @@ export const SITE_DATA: CardData[] = [
         title: "HKR",
         icon: "fa-user-secret",
         links: [
-          { href: "https://t.me/hkriie", type: "initiative", icon: "fa-code", text: "CS" }
+          { href: "https://t.me/hkriiee", type: "initiative", icon: "fa-code", text: "CS" }
         ]
       }
     ]
