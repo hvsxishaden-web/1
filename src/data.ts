@@ -290,7 +290,7 @@ export const SITE_DATA: CardData[] = [
           { href: "https://t.me/computerlevel6", type: "initiative", icon: "fa-globe", text: "جميع التخصصات" },
           { href: "https://t.me/CSlevel6", type: "initiative", icon: "fa-code", text: "CS" },
           { href: "https://t.me/COELevel6Recordings", type: "initiative", icon: "fa-microchip", text: "CE" },
-          { href: "https://t.me/+relODoa9IOdhNjI8", type: "initiative", icon: "fa-laptop", text: "IT" }
+          { href: "https://t.me/Itlevel5472", type: "initiative", icon: "fa-laptop", text: "IT" }
         ]
       },
       {
