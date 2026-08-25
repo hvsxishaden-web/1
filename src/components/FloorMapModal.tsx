@@ -326,7 +326,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="relative w-full max-w-6xl max-h-[85vh] sm:max-h-[88vh] my-auto rounded-2xl sm:rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white flex flex-col overflow-hidden floor-map-modal-card"
+          className="relative w-full max-w-6xl h-[85vh] sm:h-[88vh] max-h-[90vh] my-auto rounded-2xl sm:rounded-3xl bg-[#0b0f17] border border-slate-800 shadow-2xl text-white flex flex-col overflow-hidden floor-map-modal-card"
           dir="rtl"
         >
           {/* Top Bar / Header */}
@@ -372,9 +372,9 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto px-3.5 sm:px-5 pt-3 sm:pt-4 pb-3.5 sm:pb-5 space-y-4 sm:space-y-5 custom-scrollbar rounded-b-3xl">
             {/* Controls Bar: Search & Floor Switcher Stacked tightly */}
-            <div className="flex flex-col gap-2 w-full mt-2 sm:mt-3 pb-0.5">
+            <div className="flex flex-col gap-2 w-full mt-2 sm:mt-3 pb-0.5 shrink-0">
               {/* Search Input On Top - Full width and compact vertical height */}
-              <div className="w-full relative h-6.5 sm:h-7.5" dir="rtl">
+              <div className="w-full relative h-6.5 sm:h-7.5 shrink-0" dir="rtl">
                 <input
                   type="text"
                   dir="rtl"
@@ -401,8 +401,11 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                 )}
               </div>
 
-              {/* Floors Tabs Side-by-Side Underneath Search */}
-              <div className="flex rounded-lg bg-white/5 p-1 border border-white/10 gap-1 sm:gap-1.5 w-full floor-map-tabs-container shadow-sm h-8 sm:h-9 items-center overflow-x-auto custom-scrollbar">
+              {/* Floors Tabs Side-by-Side Underneath Search (Equal fixed width grid) */}
+              <div 
+                className="grid rounded-lg bg-white/5 p-1 border border-white/10 gap-1 sm:gap-1.5 w-full floor-map-tabs-container shadow-sm h-8 sm:h-9 items-center shrink-0"
+                style={{ gridTemplateColumns: `repeat(${currentFloors.length}, minmax(0, 1fr))` }}
+              >
                 {currentFloors.map(floor => {
                   const isActive = activeFloorId === floor.id;
                   return (
@@ -413,7 +416,7 @@ export default function FloorMapModal({ isOpen, onClose, initialGender = 'male' 
                         setActiveFloorId(floor.id);
                         setActiveRoomDetail(null);
                       }}
-                      className={`flex-1 min-w-0 h-full px-2 sm:px-3 rounded-md text-[11px] sm:text-xs font-bold transition-all duration-150 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer select-none whitespace-nowrap ${
+                      className={`w-full h-full min-w-0 px-2 sm:px-3 rounded-md text-[11px] sm:text-xs font-bold transition-colors duration-150 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer select-none whitespace-nowrap overflow-hidden ${
                         isActive
                           ? gender === 'male'
                             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
