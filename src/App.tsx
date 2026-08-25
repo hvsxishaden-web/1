@@ -537,16 +537,13 @@ export default function App() {
               </button>
             </div>
 
-            {/* Left Side: Developer Username (أقصى اليسار) */}
-            <a
-              href="https://t.me/Sherisherre"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs sm:text-sm md:text-base font-semibold text-[var(--text-medium)] hover:text-[var(--text-light)] transition-all duration-200 whitespace-nowrap hover:underline decoration-white/20 underline-offset-4"
+            {/* Left Side: Developer Username (أقصى اليسار - نص أوضح وثابت) */}
+            <span
+              className="text-sm sm:text-base md:text-lg font-bold text-[var(--text-light)] tracking-wide select-none whitespace-nowrap opacity-90"
               dir="ltr"
             >
               Developed by Sherisherre
-            </a>
+            </span>
           </footer>
         </div>
       </div>
