@@ -139,7 +139,7 @@ export const SITE_DATA: CardData[] = [
         title: "مستديم",
         icon: "fa-owl",
         links: [
-          { href: "https://t.me/addlist/LH-wE8fs_4ExNjE0", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى", status: "active" }
+          { href: "https://t.me/addlist/jwJuM8HdIlY3YzBk", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى", status: "active" }
         ]
       },
       {
@@ -162,7 +162,7 @@ export const SITE_DATA: CardData[] = [
         title: "مستديم",
         icon: "fa-owl",
         links: [
-          { href: "https://t.me/addlist/UZHn4fPZTvI4ODBk", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
+          { href: "https://t.me/addlist/Nf_YrFcwuVQxYzNk", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
         ]
       },
       {
@@ -216,7 +216,7 @@ export const SITE_DATA: CardData[] = [
         title: "مستديم",
         icon: "fa-owl",
         links: [
-          { href: "https://t.me/addlist/ED-1PugxTU42NjE8", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
+          { href: "https://t.me/iihmr0/3496", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
         ]
       },
       {
@@ -247,9 +247,7 @@ export const SITE_DATA: CardData[] = [
         title: "مستديم",
         icon: "fa-owl",
         links: [
-          { href: "https://t.me/addlist/ZtRnIlkmJTljZWU8", type: "initiative", icon: "fa-code", text: "CS", status: "active" },
-          { href: "https://t.me/addlist/g8wWumeEK18zYWE8", type: "initiative", icon: "fa-microchip", text: "CE", status: "active" },
-          { href: "https://t.me/addlist/BTe1AeQZS5pjNWE8", type: "initiative", icon: "fa-laptop", text: "IT", status: "active" }
+          { href: "https://t.me/COMPUTERLEVEL5/676", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
         ]
       },
       {
