@@ -162,7 +162,7 @@ export const SITE_DATA: CardData[] = [
         title: "مستديم",
         icon: "fa-owl",
         links: [
-          { href: "https://t.me/addlist/Nf_YrFcwuVQxYzNk", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
+          { href: "https://t.me/addlist/FAGFbzAkDV41OWM8", type: "initiative", icon: "fa-folder", text: "مجلد مواد المستوى" }
         ]
       },
       {
