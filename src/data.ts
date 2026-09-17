@@ -65,6 +65,13 @@ export const SITE_DATA: CardData[] = [
         links: [
           { href: "https://t.me/qucomputerstudents", type: "group", icon: "fa-users", text: "مجموعة المناقشة", status: "open" }
         ]
+      },
+      {
+        title: "مستودع التجارب",
+        icon: "fa-box-archive",
+        links: [
+          { href: "https://eu.bbcollab.com/guest/78d6b8df8c714f2bb212c6aab7f6a9a7", type: "group", icon: "fa-users", text: "المجموعة", status: "active" }
+        ]
       }
     ]
   },
