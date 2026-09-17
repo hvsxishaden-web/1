@@ -53,7 +53,11 @@ export default function App() {
   
   // Custom Theme & mode states
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme_mode') as 'light' | 'dark') || 'dark';
+    try {
+      return (localStorage.getItem('theme_mode') as 'light' | 'dark') || 'dark';
+    } catch {
+      return 'dark';
+    }
   });
   const [primaryColor] = useState<string>(PRESET_THEMES.blue);
   const [favoritesSnapshot, setFavoritesSnapshot] = useState<BaseLink[]>(favorites);
@@ -65,13 +69,26 @@ export default function App() {
     } else {
       document.body.classList.remove('light-mode');
     }
-    localStorage.setItem('theme_mode', themeMode);
+    try {
+      localStorage.setItem('theme_mode', themeMode);
+    } catch {
+      // Safe fallback for restricted webviews
+    }
     
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
       meta.setAttribute('content', themeMode === 'light' ? '#f5f9ff' : '#0a0a0a');
     }
   }, [themeMode]);
+
+  // Clean recovery from bfcache/background states
+  useEffect(() => {
+    const handlePageShow = () => {
+      document.body.classList.remove('modal-open');
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
+  }, []);
 
   // Search logic across all channels, initiatives and groups in SITE_DATA
   const searchResults = useMemo(() => {
@@ -161,14 +178,22 @@ export default function App() {
       root.style.setProperty('--rgb-primary', rgb);
     }
 
-    // 2. Open Welcome modal check (only on fresh tab/session visit, skipped on page refresh)
-    const hasSeenWelcome = sessionStorage.getItem('welcome_seen');
-    if (!hasSeenWelcome) {
-      const timer = setTimeout(() => {
-        setIsWelcomeOpen(true);
-        sessionStorage.setItem('welcome_seen', 'true');
-      }, 500);
-      return () => clearTimeout(timer);
+    // 2. Open Welcome modal check (persist once so it doesn't interrupt reopening)
+    try {
+      const hasSeenWelcome = localStorage.getItem('welcome_seen_v2');
+      if (!hasSeenWelcome) {
+        const timer = setTimeout(() => {
+          setIsWelcomeOpen(true);
+          try {
+            localStorage.setItem('welcome_seen_v2', 'true');
+          } catch {
+            // Ignore storage errors
+          }
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      // Safe fallback
     }
   }, []);
 
@@ -487,7 +512,7 @@ export default function App() {
                   className={filteredCards.length === 1 ? "w-full flex flex-col items-center" : "links-grid"}
                 >
                   {filteredCards.map((card, idx) => (
-                    <div key={idx} className={filteredCards.length === 1 ? "w-full max-w-2xl mx-auto" : "w-full"}>
+                    <div key={card.title + '-' + idx} className={filteredCards.length === 1 ? "w-full max-w-2xl mx-auto" : "w-full"}>
                       <LinkCard card={card} index={idx} />
                     </div>
                   ))}
